@@ -7,10 +7,10 @@ public class Ticket {
     private String userId;
     private String source;
     private String destination;
-    private Date dateOfTravel;
+    private String dateOfTravel;
     private Train train;
 
-    public Ticket(String ticketId, String userId, String source, String destination, Date dateOfTravel, Train train) {
+    public Ticket(String ticketId, String userId, String source, String destination, String dateOfTravel, Train train) {
         this.ticketId = ticketId;
         this.userId = userId;
         this.source = source;
@@ -51,11 +51,11 @@ public class Ticket {
         this.destination = destination;
     }
 
-    public Date getDateOfTravel() {
+    public String getDateOfTravel() {
         return dateOfTravel;
     }
 
-    public void setDateOfTravel(Date dateOfTravel) {
+    public void setDateOfTravel(String dateOfTravel) {
         this.dateOfTravel = dateOfTravel;
     }
 
@@ -65,5 +65,9 @@ public class Ticket {
 
     public void setTrain(Train train) {
         this.train = train;
+    }
+
+    public String getTicketInfo(){
+        return String.format("Ticket ID: %s belongs to User %s from %s to %s on %s", ticketId, userId, source, destination, dateOfTravel);
     }
 }

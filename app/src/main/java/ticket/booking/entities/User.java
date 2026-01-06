@@ -60,5 +60,11 @@ public class User {
         this.userId = userId;
     }
 
+    public void printTickets() {
+        for(int i = 0; i < bookedTickets.size(); i++) {
+            System.out.println(bookedTickets.get(i).getTicketInfo());
+        }
+    }
+
 
 }
