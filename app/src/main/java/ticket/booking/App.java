@@ -3,10 +3,14 @@
  */
 package ticket.booking;
 
+import ticket.booking.entities.User;
 import ticket.booking.services.UserBookingService;
+import ticket.booking.util.UserServiceUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class App {
 
@@ -35,8 +39,40 @@ public class App {
             switch (option) {
                 case 1:
                     System.out.println("Enter your username: ");
-                    String username = scanner.next();
+                    String usernameForSignUp = scanner.next();
+                    System.out.println("Enter your password: ");
+                    String passwordForSignUp = scanner.next();
+                    User userSignUp = new User(usernameForSignUp, passwordForSignUp, UserServiceUtil.hashPassword(passwordForSignUp), new ArrayList<>(), UUID.randomUUID().toString());
+                    userBookingService.userSignUp(userSignUp);
                     break;
+                case 2:
+                    System.out.println("Enter your username: ");
+                    String usernameForLogIn = scanner.next();
+                    System.out.println("Enter your password: ");
+                    String passwordForLogIn = scanner.next();
+                    User userLogIn = new User(usernameForLogIn, passwordForLogIn, UserServiceUtil.hashPassword(passwordForLogIn), new ArrayList<>(), UUID.randomUUID().toString());
+                    try {
+                        userBookingService = new UserBookingService(userLogIn);
+                    }
+                    catch (Exception e) {
+                        return;
+                    }
+                    break;
+                case 3:
+                    System.out.println("Fetching your bookings");
+                    userBookingService.fetchBooking();
+                    break;
+                case 4:
+                    System.out.println("Enter source station");
+                    String source = scanner.next();
+                    System.out.println("Enter destination station");
+                    String destination = scanner.next();
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+
                 default:
                     System.out.println("Hii");
                     break;
