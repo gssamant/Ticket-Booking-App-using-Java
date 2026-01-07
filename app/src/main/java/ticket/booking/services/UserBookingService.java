@@ -3,6 +3,7 @@ package ticket.booking.services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ticket.booking.entities.Ticket;
+import ticket.booking.entities.Train;
 import ticket.booking.entities.User;
 import ticket.booking.util.UserServiceUtil;
 
@@ -83,7 +84,22 @@ public class UserBookingService {
     }
 
     public void fetchBooking() {
-        user.printTickets();
+        Optional<User> userFetched = userList.stream().filter(user1 -> {
+            return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
+        }).findFirst();
+        if(userFetched.isPresent()) {
+            userFetched.get().printTickets();
+        }
+    }
+
+    public List<Train> getTrains(String source, String destination) {
+        try {
+            TrainService trainService = new TrainService();
+            return trainService.searchTrains(source, destination);
+        }
+        catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 
     public Boolean cancelBooking(String ticketId) {

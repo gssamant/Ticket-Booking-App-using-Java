@@ -3,12 +3,14 @@
  */
 package ticket.booking;
 
+import ticket.booking.entities.Train;
 import ticket.booking.entities.User;
 import ticket.booking.services.UserBookingService;
 import ticket.booking.util.UserServiceUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -67,6 +69,7 @@ public class App {
                     String source = scanner.next();
                     System.out.println("Enter destination station");
                     String destination = scanner.next();
+                    List<Train> trains = userBookingService.getTrains(source, destination);
                     break;
                 case 5:
                     break;
